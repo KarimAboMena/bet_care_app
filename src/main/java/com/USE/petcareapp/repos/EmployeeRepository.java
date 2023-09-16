@@ -19,6 +19,7 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
             nativeQuery = true)
     List<Employee> findAllEmployeeWithSkill(@Param("skillId") Long skillID);
 
+    //FIXME: it can return not busy employee(s)
     @Query(
             value = "SELECT employee.* FROM service_request "+
             "join employee on Employee.id =service_request.employee_id " +

@@ -6,6 +6,7 @@ import com.USE.petcareapp.data.Owner;
 import com.USE.petcareapp.repos.OwnerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @Service
-@AllArgsConstructor
+@AllArgsConstructor //TODO: Nice!!, better than using @Autowired. U can read more: https://www.baeldung.com/java-spring-field-injection-cons
 public class OwnerServices {
     private final OwnerRepository ownerRepository;
 
@@ -32,7 +33,7 @@ public class OwnerServices {
     }
     public Owner getOwnerById(Long id){
         Optional<Owner> opt= ownerRepository.findById(id);
-        return opt.get();
+        return opt.get(); //TODO: U may use opt.orElseThrow(ChangeSetPersister.NotFoundException::new);
     }
 
     public void updateOwner(Owner owner) {
@@ -48,7 +49,7 @@ public class OwnerServices {
     public void deleteOwner(long id) {
         boolean exists = ownerRepository.existsById(id);
         if(!exists){
-            throw new IllegalStateException("owner with id " + id + "does not exist");
+            throw new IllegalStateException("owner with id " + id + "does not exist");  //TODO: Good Formative Error Message, Well Done!
         }
         ownerRepository.deleteById(id);
     }

@@ -39,7 +39,7 @@ public class Config extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsService userDetailsService;
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository userRepository;  //TODO: Always try to remove unused code before committing
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
     @Autowired
@@ -70,13 +70,16 @@ public class Config extends WebSecurityConfigurerAdapter {
     public JwtTokenFilter jwtTokenFilter() {
         return new JwtTokenFilter();
     }
+    /*FIXME: Missing requirements.
+            only admins: can create/edit/delete employees profile
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable();
         http.exceptionHandling(exception -> exception.authenticationEntryPoint(authEntryPointJwt));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/user/login/**").permitAll();
-//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/employee/**").hasAnyRole("ADMIN");
+//        http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/employee/**").hasAnyRole("ADMIN");    //TODO: Always try to remove commented code before committing
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/user/register/**").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.authenticationProvider(authenticationProvider());
@@ -98,7 +101,7 @@ public class Config extends WebSecurityConfigurerAdapter {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
         config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
+        config.addAllowedHeader("*");   //TODO: Try Not to use the wildcards, in security in general, Block All and only Allow the wanted, u may check this: https://www.invicti.com/web-vulnerability-scanner/vulnerabilities/misconfigured-access-control-allow-origin-header/
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);

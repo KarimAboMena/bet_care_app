@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserService {
+    //TODO: It's better to use @AllArgsConstructor on class level. U can read more at: https://www.baeldung.com/java-spring-field-injection-cons
+    //TODO: Always use private as long as no need to do something else
     @Autowired
     UserRepository userRepository ;
     @Autowired

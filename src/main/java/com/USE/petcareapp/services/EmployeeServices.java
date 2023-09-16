@@ -23,7 +23,7 @@ public class EmployeeServices {
     public void updateEmployee(Employee employee ) {
 
         if (Objects.isNull(employee.getId())){
-            throw new IllegalStateException("this id is not exist");
+            throw new IllegalStateException("this id is not exist");    //TODO: U may use String.format("this id: %s is not exist", id) for displaying the id in the error message
         } else {
             if (employee.getName() == null) {
                 throw new RuntimeException("please inter your name");
@@ -55,7 +55,7 @@ public class EmployeeServices {
 
     public List<Employee> getAvailableEmployee(Long skillId , LocalDateTime startDate ,LocalDateTime endDate) {
 
-        List<Employee> employeesWithSkill =employeeRepository.findAllEmployeeWithSkill(skillId);
+        List<Employee> employeesWithSkill =employeeRepository.findAllEmployeeWithSkill(skillId);    //TODO: Nice to filter!
         List<Employee> busyEmployee =employeeRepository.findBusyEmployees(skillId,startDate,endDate);
 
         List <Employee> freeEmployee =new ArrayList<>();
@@ -63,7 +63,7 @@ public class EmployeeServices {
       outerLoop: for(int i =0 ; i<employeesWithSkill.size();i++){
             for(int j = 0 ; j < busyEmployee.size();j++){
                 if(employeesWithSkill.get(i).getId().equals(busyEmployee.get(j).getId())) {
-                     continue outerLoop;
+                     continue outerLoop;    //TODO: Clever java implementation!
                 }
             }
             freeEmployee.add(employeesWithSkill.get(i));
